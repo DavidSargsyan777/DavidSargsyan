@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="suite that includes classes addition and subtract ">
+  <test name="sumSubTest">
+    <groups>
+      <run>
+        <include name="sumAndSubGroup"/>
+      </run>
+    </groups>
+    <packages>
+      <package name="com.epam.tc.tests"/>
+    </packages>
+  </test>
+</suite>
