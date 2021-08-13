@@ -2,7 +2,7 @@
 <suite name="suite that includes classes from specific package with specific groups ">
   <test name="allTests">
     <packages>
-      <package name="com.epam.tc.tests"/>
+      <package name="com.epam.tc.hw1.tests"/>
     </packages>
   </test>
 </suite>

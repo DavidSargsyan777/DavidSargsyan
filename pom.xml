@@ -13,13 +13,17 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+    <calculator.version>1.0</calculator.version>
     <calculator.systemPath>${project.basedir}/src/main/resources/calculator-1.0.jar</calculator.systemPath>
     <assertj-core.version>3.20.2</assertj-core.version>
     <testng.version>7.4.0</testng.version>
+
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <checkstyle.version>8.42</checkstyle.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
 
-    <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
+
+    <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
   </properties>
 
   <build>
@@ -27,7 +31,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>${maven-checkstyle-plugin.version}</version>
         <dependencies>
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
@@ -65,35 +69,52 @@
       </plugin>
     </plugins>
   </build>
-<profiles>
-  <profile>
-    <id>Profile for all</id>
-    <properties>
-      <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/all-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
-    </properties>
-  </profile>
-  <profile>
-    <id>Profile for sumsub</id>
-    <activation>
-      <activeByDefault>true</activeByDefault>
-    </activation>
-    <properties>
-      <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
-    </properties>
-  </profile>
-  <profile>
-    <id>Profile for multdiv</id>
-    <properties>
-      <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/multdiv-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
-    </properties>
-  </profile>
-</profiles>
+  <profiles>
+    <profile>
+      <id>Profile for hw2</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw2/exercise1-exercise2-tests.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
+      <id>Profile for all</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/all-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
+      <id>Profile for sumsub</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
+      <id>Profile for multdiv</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/multdiv-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.141.59</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>4.4.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.epam.tat.module4</groupId>
       <artifactId>calculator</artifactId>
-      <version>1.0</version>
+      <version>${calculator.version}</version>
       <scope>system</scope>
       <systemPath>${calculator.systemPath}</systemPath>
     </dependency>
