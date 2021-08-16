@@ -1,22 +1,20 @@
-package com.epam.tc.tests;
+package com.epam.tc.hw1.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.epam.tc.data.DataProviders;
+import com.epam.tc.hw1.data.DataProviders;
 import org.testng.annotations.Test;
 
-public class TestForSum {
-
+public class TestForMult {
     BeforeAfter beforeAfter = new BeforeAfter();
 
-
-    @Test(dataProviderClass = DataProviders.class, dataProvider = "All data", groups = {"sumAndSubGroup"})
+    @Test(dataProviderClass = DataProviders.class, dataProvider = "All data", groups = {"multAndDivGroup"})
     public void testSum(double num1, double num2, double expected) {
         beforeAfter.before();
-        expected = num1 + num2;
-        double result = beforeAfter.calculator.sum(num1, num2);
+        expected = num1 * num2;
+        double result = beforeAfter.calculator.mult(num1, num2);
         assertThat(result)
-            .as("Addition was wrong")
+            .as("Multiply was wrong")
             .isEqualTo(expected);
         beforeAfter.after();
     }
