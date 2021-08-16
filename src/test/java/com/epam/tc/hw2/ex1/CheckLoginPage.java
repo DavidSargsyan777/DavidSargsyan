@@ -1,41 +1,40 @@
 package com.epam.tc.hw2.ex1;
 
-import com.epam.tc.hw2.BeforeAfter;
+import com.epam.tc.hw2.AbstractBeforeAfter;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class Exercise1 extends BeforeAfter {
-    private WebDriverWait webDriverWait;
-    private WebElement webElement;
+public class CheckLoginPage extends AbstractBeforeAfter {
+    WebDriverWait webDriverWait;
     static final SoftAssertions SOF = new SoftAssertions();
+    static final String EPAM_URL = "https://jdi-testing.github.io/jdi-light/index.html";
 
     @Test
-    public void exercise1() {
+    public void loginPageTest() {
         webDriverWait = new WebDriverWait(webDriver, 10);
         webDriver.manage().window().maximize();
-        webDriver.navigate().to("https://jdi-testing.github.io/jdi-light/index.html");
-        webDriverWait.until(ExpectedConditions.urlToBe("https://jdi-testing.github.io/jdi-light/index.html"));
+        webDriver.navigate().to(EPAM_URL);
+        webDriverWait.until(ExpectedConditions.urlToBe(EPAM_URL));
         //Assert Browser title
-        webElement = webDriver.findElement(By.name("main-title"));
+        WebElement webElement = webDriver.findElement(By.name("main-title"));
         webDriverWait.until(ExpectedConditions.titleIs("Home Page"));
-        SOF.assertThat(webDriver.getTitle()).isEqualTo("Home page");
+        SOF.assertThat(webDriver.getTitle()).isEqualTo("Home Page");
         //Assert performing login
         WebElement openLogin = webDriver.findElement(By.id("user-icon"));
         openLogin.click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(openLogin));
         WebElement username = webDriver.findElement(By.id("name"));
         WebElement password = webDriver.findElement(By.id("password"));
-        final WebElement LOG = webDriver.findElement(By.id("login-button"));
+        WebElement log = webDriver.findElement(By.id("login-button"));
         username.sendKeys("Roman");
         password.sendKeys("Jdi1234");
-        LOG.click();
-        webDriverWait.until(ExpectedConditions.urlToBe("https://jdi-testing.github.io/jdi-light/index.html"));
-        SOF.assertThat(webDriver.getCurrentUrl()).isEqualTo("https://jdi-testing.github.io/jdi-light/index.html");
+        log.click();
+        webDriverWait.until(ExpectedConditions.urlToBe(EPAM_URL));
+        SOF.assertThat(webDriver.getCurrentUrl()).isEqualTo(EPAM_URL);
         // Check loggined
         WebElement usernameLoged = webDriver.findElement(By.id("user-name"));
         usernameLoged.isDisplayed();
@@ -87,7 +86,7 @@ public class Exercise1 extends BeforeAfter {
             + "wish to get more…");
         textUnder4.isDisplayed();
         //Assert that there is the iframe with “Frame Button” exist
-        WebElement frameWithButton = webElement.findElement(By.xpath("//*[@id='frame']"));
+        WebElement frameWithButton = webDriver.findElement(By.id("frame"));
         frameWithButton.isDisplayed();
         //Switch to the iframe and check that there is “Frame Button” in the iframe
         webDriver.switchTo().frame(frameWithButton);
@@ -109,10 +108,11 @@ public class Exercise1 extends BeforeAfter {
         WebElement metalsAndColorsFormOnLeftSection =
             webDriver.findElement(By.xpath("//*[@class='sidebar-menu left']//a[@href='metals-colors.html']"));
         metalsAndColorsFormOnLeftSection.isDisplayed();
-        SOF.assertThat(metalsAndColorsFormOnLeftSection.getText()).isEqualTo("Metals & colors");
+        SOF.assertThat(metalsAndColorsFormOnLeftSection.getText()).isEqualTo("Metals & Colors");
         WebElement elementPacksFormOnLeftSection =
             webDriver.findElement(By.xpath("//span[contains(text(),'Element')]"));
         elementPacksFormOnLeftSection.isDisplayed();
-        SOF.assertThat(elementPacksFormOnLeftSection.getText()).isEqualTo("Element packs");
+        SOF.assertThat(elementPacksFormOnLeftSection.getText()).isEqualTo("Elements packs");
+        SOF.assertAll();
     }
 }
