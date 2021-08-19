@@ -72,6 +72,12 @@
   </build>
   <profiles>
     <profile>
+      <id>Profile for hw3</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw3/checklogin-checkselection.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
       <id>Profile for hw2</id>
       <properties>
         <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw2/exercise1-exercise2-tests.xml</maven-surefire-plugin.suiteXmlFiles>
@@ -130,6 +136,12 @@
       <artifactId>assertj-core</artifactId>
       <version>${assertj-core.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>4.4.3</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>
