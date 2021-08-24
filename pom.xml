@@ -17,7 +17,7 @@
     <calculator.systemPath>${project.basedir}/src/main/resources/calculator-1.0.jar</calculator.systemPath>
     <assertj-core.version>3.20.2</assertj-core.version>
     <testng.version>7.4.0</testng.version>
-    <webdrivermanager.version>4.4.3</webdrivermanager.version>
+
     <selenium-java.version>3.141.59</selenium-java.version>
 
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
@@ -25,6 +25,7 @@
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
 
     <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
+    <webdrivermanager.version>4.4.3</webdrivermanager.version>
   </properties>
 
   <build>
@@ -71,6 +72,12 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>Profile for hw3</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw3/checklogin-checkselection.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
     <profile>
       <id>Profile for hw2</id>
       <properties>
@@ -130,6 +137,12 @@
       <artifactId>assertj-core</artifactId>
       <version>${assertj-core.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>${webdrivermanager.version}</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>
