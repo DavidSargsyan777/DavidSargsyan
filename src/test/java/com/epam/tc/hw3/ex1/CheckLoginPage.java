@@ -1,10 +1,9 @@
 package com.epam.tc.hw3.ex1;
 
 import com.epam.tc.hw3.AbstractBeforeAfter;
-import com.epam.tc.hw3.driver.utils.Constants;
 import com.epam.tc.hw3.pages.HomePage;
 import com.epam.tc.hw3.pages.IndexPage;
-import java.util.Locale;
+import com.epam.tc.hw3.utils.Constants;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
@@ -13,40 +12,41 @@ public class CheckLoginPage extends AbstractBeforeAfter {
 
     @Test
     public void loginPageTest() {
+        HomePage homePage = new HomePage(webDriver);
         //Assert Browser title
-        String titleName = new HomePage(webDriver)
+        String titleName = homePage
             .openPage()
             .getTitleName();
-        SOF.assertThat(titleName).isEqualTo(Constants.HOME_PAGE);
+        SOF.assertThat(titleName).isEqualTo(Constants.HOME_PAGE.getConstant());
         //Assert performing login
         String ivanURL = new IndexPage(webDriver)
             .openLogin()
             .login()
             .getUrl();
-        SOF.assertThat(ivanURL).isEqualTo(Constants.EPAM_URL);
+        SOF.assertThat(ivanURL).isEqualTo(Constants.EPAM_URL.getConstant());
         //        Assert Username in the left-top side of screen that user is loggined
         String fullUserName = new IndexPage(webDriver)
             .checkDisplay()
             .getFullUserName();
         SOF.assertThat(fullUserName).isEqualTo("ROMAN IOVLEV");
         //Assert that there are 4 items on the header section are displayed and they have proper texts
-        String homeOnTheHeader = new HomePage(webDriver).getHeaderMenu()
-                                                        .getDisplayedOnHeaderItem(Constants.HOME);
-        SOF.assertThat(homeOnTheHeader).isEqualTo(Constants.HOME.toUpperCase(Locale.ROOT));
-        String contactFormOnTheHeader = new HomePage(webDriver).getHeaderMenu()
-                                                               .getDisplayedOnHeaderItem(Constants.CONTACT_FORM);
-        SOF.assertThat(contactFormOnTheHeader).isEqualTo(Constants.CONTACT_FORM.toUpperCase(Locale.ROOT));
-        String serviceOnTheHeader = new HomePage(webDriver).getHeaderMenu()
-                                                           .getDisplayedOnHeaderItem(Constants.SERVICE);
-        SOF.assertThat(serviceOnTheHeader).isEqualTo(Constants.SERVICE.toUpperCase(Locale.ROOT));
-        String metalsAndColorsOnTheHead = new HomePage(webDriver).getHeaderMenu()
-                                                                 .getDisplayedOnHeaderItem(Constants.METALS_AND_COLORS);
-        SOF.assertThat(metalsAndColorsOnTheHead).isEqualTo(Constants.METALS_AND_COLORS.toUpperCase(Locale.ROOT));
+        String homeOnTheHeader = homePage.getHeaderMenu()
+                                         .getDisplayedOnHeaderItem(Constants.HOME.toString());
+        SOF.assertThat(homeOnTheHeader).isEqualTo(Constants.HOME.toString());
+        String contactFormOnTheHeader = homePage.getHeaderMenu()
+                                                .getDisplayedOnHeaderItem(Constants.CONTACT_FORM.toString());
+        SOF.assertThat(contactFormOnTheHeader).isEqualTo(Constants.CONTACT_FORM.toString());
+        String serviceOnTheHeader = homePage.getHeaderMenu()
+                                            .getDisplayedOnHeaderItem(Constants.SERVICE.toString());
+        SOF.assertThat(serviceOnTheHeader).isEqualTo(Constants.SERVICE.toString());
+        String metalsAndColorsOnTheHead = homePage.getHeaderMenu()
+                                                  .getDisplayedOnHeaderItem(Constants.METALS_AND_COLORS.toString());
+        SOF.assertThat(metalsAndColorsOnTheHead).isEqualTo(Constants.METALS_AND_COLORS.toString());
         //Assert that there are 4 images on the Index Page and they are displayed
-        new HomePage(webDriver).iconsAreDisplayed();
+        homePage.iconsAreDisplayed();
         //Assert that there are 4 texts on the Index Page under icons and they have proper text
-        new HomePage(webDriver).textsUnderIconsAreDisplayed();
-        String[] textsUnderIcon = new HomePage(webDriver).getArrayOfTexts();
+        homePage.textsUnderIconsAreDisplayed();
+        String[] textsUnderIcon = homePage.getArrayOfTexts();
         SOF.assertThat(textsUnderIcon[0]).isEqualTo("To include good practices\n"
             + "and ideas from successful\n"
             + "EPAM project");
@@ -58,33 +58,33 @@ public class CheckLoginPage extends AbstractBeforeAfter {
             + "some external projects),\n"
             + "wish to get more…");
         //Assert that there is the iframe with “Frame Button” exist
-        new HomePage(webDriver).frameWithButtonIsDisplayed();
+        homePage.frameWithButtonIsDisplayed();
         //Switch to the iframe and check that there is “Frame Button” in the iframe
-        webDriver.switchTo().frame(new HomePage(webDriver).getFrameWithButton());
-        SOF.assertThat(new HomePage(webDriver).getButtonFrame()).isEqualTo("Frame Button");
+        webDriver.switchTo().frame(homePage.getFrameWithButton());
+        SOF.assertThat(homePage.getButtonFrame()).isEqualTo("Frame Button");
         //Switch to original window back
         webDriver.switchTo().defaultContent();
         //Assert that there are 5 items in the Left Section are displayed and they have proper text
-        SOF.assertThat(new HomePage(webDriver)
+        SOF.assertThat(homePage
                .getLeftSideMenu()
-               .getDisplayedElementFromLeftSide(Constants.HOME))
-            .isEqualTo(Constants.HOME);
-        SOF.assertThat(new HomePage(webDriver)
+               .getDisplayedElementFromLeftSide(Constants.HOME.getConstant()))
+            .isEqualTo(Constants.HOME.getConstant());
+        SOF.assertThat(homePage
                .getLeftSideMenu()
-               .getDisplayedElementFromLeftSide(Constants.CONTACT_FORM))
-            .isEqualTo(Constants.CONTACT_FORM);
-        SOF.assertThat(new HomePage(webDriver)
+               .getDisplayedElementFromLeftSide(Constants.CONTACT_FORM.getConstant()))
+            .isEqualTo(Constants.CONTACT_FORM.getConstant());
+        SOF.assertThat(homePage
                .getLeftSideMenu()
-               .getDisplayedElementFromLeftSide(Constants.SERVICE))
-            .isEqualTo(Constants.SERVICE);
-        SOF.assertThat(new HomePage(webDriver)
+               .getDisplayedElementFromLeftSide(Constants.SERVICE.getConstant()))
+            .isEqualTo(Constants.SERVICE.getConstant());
+        SOF.assertThat(homePage
                .getLeftSideMenu()
-               .getDisplayedElementFromLeftSide(Constants.METALS_AND_COLORS))
-            .isEqualTo(Constants.METALS_AND_COLORS);
-        SOF.assertThat(new HomePage(webDriver)
+               .getDisplayedElementFromLeftSide(Constants.METALS_AND_COLORS.getConstant()))
+            .isEqualTo(Constants.METALS_AND_COLORS.getConstant());
+        SOF.assertThat(homePage
                .getLeftSideMenu()
-               .getDisplayedElementFromLeftSide(Constants.ELEMENT_PACKS))
-            .isEqualTo(Constants.ELEMENT_PACKS);
+               .getDisplayedElementFromLeftSide(Constants.ELEMENT_PACKS.getConstant()))
+            .isEqualTo(Constants.ELEMENT_PACKS.getConstant());
         SOF.assertAll();
     }
 }

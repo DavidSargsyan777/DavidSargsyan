@@ -1,6 +1,7 @@
 package com.epam.tc.hw3.pages;
 
-import com.epam.tc.hw3.GetPropertiesValue;
+
+import com.epam.tc.hw3.utils.GetPropertiesValue;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -1,4 +1,4 @@
-package com.epam.tc.hw3;
+package com.epam.tc.hw3.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
