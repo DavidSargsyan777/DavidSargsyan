@@ -26,6 +26,8 @@
 
     <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw1/sumsub-tests-suite.xml</maven-surefire-plugin.suiteXmlFiles>
     <webdrivermanager.version>4.4.3</webdrivermanager.version>
+    <allure-testng.version>2.13.2</allure-testng.version>
+    <aspect.version>1.9.5</aspect.version>
   </properties>
 
   <build>
@@ -66,12 +68,29 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
+          <argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspect.version}/aspectjweaver-${aspect.version}.jar"
+          </argLine>
           <suiteXmlFiles>${maven-surefire-plugin.suiteXmlFiles}</suiteXmlFiles>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspect.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>ProfileForHw4</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw4/checklogin-checkselection.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
     <profile>
       <id>Profile for hw3</id>
       <properties>
@@ -109,6 +128,12 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.20</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>${selenium-java.version}</version>
@@ -144,5 +169,24 @@
       <version>${webdrivermanager.version}</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure-testng.version}</version>
+    </dependency>
   </dependencies>
+
+  <reporting>
+    <excludeDefaults>true</excludeDefaults>
+    <plugins>
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.10.0</version>
+        <configuration>
+          <reportVersion>${allure-testng.version}</reportVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
