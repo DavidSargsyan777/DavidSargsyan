@@ -3,14 +3,17 @@ package com.epam.tc.hw4.failed;
 import static io.qameta.allure.Allure.step;
 
 import com.epam.tc.hw4.AbstractBeforeAfter;
+import com.epam.tc.hw4.listeners.ScreenshotListener;
 import com.epam.tc.hw4.pages.HomePage;
 import com.epam.tc.hw4.pages.IndexPage;
 import com.epam.tc.hw4.utils.Constants;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.assertj.core.api.SoftAssertions;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners({ScreenshotListener.class})
 public class FailedClassCheckLoginPage extends AbstractBeforeAfter {
     static final SoftAssertions SOF = new SoftAssertions();
 
