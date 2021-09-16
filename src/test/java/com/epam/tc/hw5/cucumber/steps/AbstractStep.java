@@ -8,7 +8,7 @@ import com.epam.tc.hw5.pages.IndexPage;
 import com.epam.tc.hw5.pages.UserTablePage;
 import org.openqa.selenium.WebDriver;
 
-public class AbstractStep {
+public abstract class  AbstractStep {
 
     protected HomePage homePage;
     protected IndexPage indexPage;
