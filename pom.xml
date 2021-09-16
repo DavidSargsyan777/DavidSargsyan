@@ -28,6 +28,9 @@
     <webdrivermanager.version>4.4.3</webdrivermanager.version>
     <allure-testng.version>2.13.2</allure-testng.version>
     <aspect.version>1.9.5</aspect.version>
+    <cucumber.version>6.11.0</cucumber.version>
+    <allure-maven.version>2.10.0</allure-maven.version>
+    <lombok.version>1.18.20</lombok.version>
   </properties>
 
   <build>
@@ -86,6 +89,12 @@
   </build>
   <profiles>
     <profile>
+      <id>ProfileForHw5</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw5/differentelement-usertable.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
       <id>ProfileForHw4</id>
       <properties>
         <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw4/checklogin-checkselection.xml</maven-surefire-plugin.suiteXmlFiles>
@@ -130,7 +139,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.20</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -174,6 +183,16 @@
       <artifactId>allure-testng</artifactId>
       <version>${allure-testng.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
   </dependencies>
 
   <reporting>
@@ -182,7 +201,7 @@
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
-        <version>2.10.0</version>
+        <version>${allure-maven.version}</version>
         <configuration>
           <reportVersion>${allure-testng.version}</reportVersion>
         </configuration>
