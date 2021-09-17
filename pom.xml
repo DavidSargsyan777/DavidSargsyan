@@ -89,6 +89,12 @@
   </build>
   <profiles>
     <profile>
+      <id>ProfileForHw6</id>
+      <properties>
+        <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw6/checklogin-checkselection-grid.xml</maven-surefire-plugin.suiteXmlFiles>
+      </properties>
+    </profile>
+    <profile>
       <id>ProfileForHw5</id>
       <properties>
         <maven-surefire-plugin.suiteXmlFiles>${project.build.testOutputDirectory}/testng/hw5/differentelement-usertable.xml</maven-surefire-plugin.suiteXmlFiles>
@@ -192,6 +198,12 @@
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-testng</artifactId>
       <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.4.0</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
