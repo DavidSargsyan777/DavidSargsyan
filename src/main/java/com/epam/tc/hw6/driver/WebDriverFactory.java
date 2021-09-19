@@ -25,9 +25,9 @@ public final class WebDriverFactory {
     private static final String LOCAL_DRIVER_TYPE = "local";
 
     public static WebDriver createWebDriver(final String driverType, final String browserName) {
-        //        if (REMOTE_DRIVER_TYPE.equalsIgnoreCase(driverType)) {
-        //            return createRemoteWebDriver(browserName);
-        if (LOCAL_DRIVER_TYPE.equalsIgnoreCase(driverType)) {
+        if (REMOTE_DRIVER_TYPE.equalsIgnoreCase(driverType)) {
+            return createRemoteWebDriver(browserName);
+        } else if (LOCAL_DRIVER_TYPE.equalsIgnoreCase(driverType)) {
             return createLocalDriver(browserName);
         } else {
             throw new WebDriverTypeException(String.format("Unsupported driver type: %s", driverType));
@@ -59,27 +59,27 @@ public final class WebDriverFactory {
         return new ChromeDriver();
     }
 
-    //    private static WebDriver createRemoteWebDriver(final String browserName) {
-    //        Capabilities capabilities = null;
-    //        if (CHROME.equalsIgnoreCase(browserName)) {
-    //            capabilities = createRemoteChromeCapabilities();
-    //        } else if (FIREFOX.equalsIgnoreCase(browserName)) {
-    //            capabilities = createRemoteFirefoxCapabilities();
-    //        } else {
-    //            throw new IllegalArgumentException(String.format("Unsupported browser: %s", browserName));
-    //        }
-    //        try {
-    //            return new RemoteWebDriver(new URL("http://192.168.0.4:4444/wd/hub"), capabilities);
-    //        } catch (MalformedURLException e) {
-    //            throw new InvalidOpenTypeException("Incorrect selenium grid URL");
-    //        }
-    //    }
+    private static WebDriver createRemoteWebDriver(final String browserName) {
+        Capabilities capabilities = null;
+        if (CHROME.equalsIgnoreCase(browserName)) {
+            capabilities = createRemoteChromeCapabilities();
+        } else if (FIREFOX.equalsIgnoreCase(browserName)) {
+            capabilities = createRemoteFirefoxCapabilities();
+        } else {
+            throw new IllegalArgumentException(String.format("Unsupported browser: %s", browserName));
+        }
+        try {
+            return new RemoteWebDriver(new URL("http://192.168.0.4:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            throw new InvalidOpenTypeException("Incorrect selenium grid URL");
+        }
+    }
 
-    //    private static Capabilities createRemoteFirefoxCapabilities() {
-    //        return new FirefoxOptions();
-    //    }
-    //
-    //    private static Capabilities createRemoteChromeCapabilities() {
-    //        return new ChromeOptions();
-    //    }
+    private static Capabilities createRemoteFirefoxCapabilities() {
+        return new FirefoxOptions();
+    }
+
+    private static Capabilities createRemoteChromeCapabilities() {
+        return new ChromeOptions();
+    }
 }
