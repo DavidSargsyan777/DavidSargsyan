@@ -1,8 +1,7 @@
-package com.epam.tc.hw2;
+package com.epam.tc.hw6;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.epam.tc.hw6.driver.WebDriverSingleton;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -11,12 +10,12 @@ public abstract class AbstractBeforeAfter {
 
     @BeforeMethod(alwaysRun = true)
     public void setupDriver() {
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
+        webDriver = WebDriverSingleton.getDriver();
+        webDriver.manage().window().maximize();
     }
 
     @AfterMethod(alwaysRun = true)
     public void clear() {
-        webDriver.close();
+        WebDriverSingleton.closeDriver();
     }
 }
