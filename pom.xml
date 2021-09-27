@@ -31,6 +31,7 @@
     <cucumber.version>6.11.0</cucumber.version>
     <allure-maven.version>2.10.0</allure-maven.version>
     <lombok.version>1.18.20</lombok.version>
+    <rest-assured.version>4.2.0</rest-assured.version>
   </properties>
 
   <build>
@@ -143,6 +144,17 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>java-hamcrest</artifactId>
+      <version>2.0.0.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
@@ -203,6 +215,12 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>7.4.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.20.2</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
