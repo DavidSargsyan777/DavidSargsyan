@@ -1,4 +1,4 @@
-package com.epam.tc.hw8.utils;
+package com.epam.tc.hw9.utils;
 
 public class WordsForCheck {
     public static final String WRONG_WORD_ON_ENGLISH = "hellod";

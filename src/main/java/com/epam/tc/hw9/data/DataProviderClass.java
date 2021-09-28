@@ -1,4 +1,4 @@
-package com.epam.tc.hw8.data;
+package com.epam.tc.hw9.data;
 
 import org.testng.annotations.DataProvider;
 

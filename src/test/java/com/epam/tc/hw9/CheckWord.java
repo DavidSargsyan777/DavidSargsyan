@@ -1,8 +1,8 @@
-package com.epam.tc.hw8;
+package com.epam.tc.hw9;
 
-import com.epam.tc.hw8.service.YandexSpellerAssertions;
+import com.epam.tc.hw9.service.YandexSpellerAssertions;
 
-import com.epam.tc.hw8.utils.WordsForCheck;
+import com.epam.tc.hw9.utils.WordsForCheck;
 import org.testng.annotations.Test;
 
 public class CheckWord {

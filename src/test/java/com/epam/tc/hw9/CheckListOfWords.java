@@ -1,7 +1,7 @@
-package com.epam.tc.hw8;
+package com.epam.tc.hw9;
 
-import com.epam.tc.hw8.data.DataProviderClass;
-import com.epam.tc.hw8.service.YandexSpellerAssertions;
+import com.epam.tc.hw9.data.DataProviderClass;
+import com.epam.tc.hw9.service.YandexSpellerAssertions;
 import org.testng.annotations.Test;
 
 public class CheckListOfWords {

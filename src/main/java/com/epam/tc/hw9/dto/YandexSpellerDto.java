@@ -1,4 +1,4 @@
-package com.epam.tc.hw8.dto;
+package com.epam.tc.hw9.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
