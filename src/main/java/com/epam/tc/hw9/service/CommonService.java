@@ -1,11 +1,16 @@
 package com.epam.tc.hw9.service;
 
+import static com.epam.tc.hw9.utils.URI.BASE_URI;
+import static com.epam.tc.hw9.utils.URI.CHECK_TEXT_URI;
+import static com.epam.tc.hw9.utils.Parameters.PARAM_TEXT;
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_OK;
 
-import com.epam.tc.hw9.utils.Parameters;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.util.function.Supplier;
+import org.hamcrest.Matchers;
 
 public class CommonService {
     private RequestSpecification requestSpecification;
@@ -13,33 +18,27 @@ public class CommonService {
     public CommonService() {
         requestSpecification =
             new RequestSpecBuilder()
-                .setBaseUri("https://speller.yandex.net/services/spellservice.json/checkText")
+                .setBaseUri(BASE_URI)
                 .build();
     }
 
-    public Response getWord(String text) {
-        RequestSpecification specification = given(requestSpecification);
-
-        return specification
-            .param(Parameters.PARAM_TEXT, text)
-            .get();
+    public Response getCheckTextWithoutParams(String text) {
+        Supplier<RequestSpecification> specification = () -> given(requestSpecification);
+        Response response = specification.get()
+                                         .request()
+                                         .param(PARAM_TEXT, text)
+                                         .get(CHECK_TEXT_URI);
+        response.then()
+                .statusCode(Matchers.is(SC_OK));
+        return response;
     }
 
-    public Response getWordUsingLangParams(String text, String param, String language) {
-        RequestSpecification specification = given(requestSpecification);
-
-        return specification
-            .param(Parameters.PARAM_TEXT, text)
-            .param(param, language)
-            .get();
-    }
-
-    public Response getWordUsingOptionParams(String text, String param, Integer options) {
-        RequestSpecification specification = given(requestSpecification);
-
-        return specification
-            .param(Parameters.PARAM_TEXT, text)
-            .param(param, options)
-            .get();
+    public <T> Response getCheckTextUsingParams(String text, String param, T paramName) {
+        Supplier<RequestSpecification> specification = () -> given(requestSpecification);
+        return specification.get()
+                            .request()
+                            .param(PARAM_TEXT, text)
+                            .param(param, paramName)
+                            .get(CHECK_TEXT_URI);
     }
 }

@@ -1,49 +1,45 @@
 package com.epam.tc.hw9.service;
 
+import static com.epam.tc.hw9.utils.Codes.ERROR_REPEAT_WORD;
+import static com.epam.tc.hw9.utils.Codes.ERROR_UNKNOWN_WORD;
+import static com.epam.tc.hw9.utils.Options.FIND_REPEAT_WORDS;
+import static com.epam.tc.hw9.utils.Options.IGNORE_DIGITS;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.epam.tc.hw9.dto.YandexSpellerDto;
+import com.epam.tc.hw9.dto.YandexSpellerResponseDto;
 
 public class YandexSpellerAssertions {
+    static final YandexSpellerService SPELLER_SERVICE_INSTANCE = YandexSpellerService.getInstance();
 
-    public void checkTheCorrectWord(String text, String expected) {
-        YandexSpellerDto[] correctWord = new YandexSpellerService().getCorrectWord(text);
-        assertThat(correctWord[0].getS()).as("Parameter of right words not contains expected correct one")
+    public void checkText(String text, String expected) {
+        YandexSpellerResponseDto[] correctWord = SPELLER_SERVICE_INSTANCE.getCheckText(text);
+        assertThat(correctWord[0].getS()).as("Parameter \"s\"  not contains expected word")
                                          .contains(expected);
+        assertThat(correctWord[0].getCode()).as("The code of Error isn't correct").isEqualTo(ERROR_UNKNOWN_WORD);
     }
 
-    public void checkTheCorrectWorkWithLangParam(String text, String language, String expected) {
-        YandexSpellerDto[] correctWord = new YandexSpellerService().getCorrectWordWithLanguageParam(text, language);
-        assertThat(correctWord.length).as(
-                                          "The checked word was correct "
-                                              + "or the value of parameter \"lang\" was incorrect!")
-                                      .isNotEqualTo(0);
+    public void checkTextWithLangParam(String text, String language, String expected) {
+        YandexSpellerResponseDto[] correctWord =
+            SPELLER_SERVICE_INSTANCE.getCheckTextWithLanguageParam(text, language);
         assertThat(correctWord[0]
-            .getS()).as("The operation with this parameter isn't correct!")
+            .getS()).as("The operation with \"lang\" parameter isn't correct!")
                     .contains(expected);
     }
 
-    public void checkTheCorrectWorkWithOptionsParam(String text, Integer options) {
-        YandexSpellerDto[] correctWord = new YandexSpellerService().getCorrectWordWithOptionsParam(text, options);
-
-        switch (options) {
-            case 2:
-                assertThat(correctWord.length).as(
-                                                  "The operation with this parameter isn't correct!")
-                                              .isEqualTo(0);
-                break;
-            case 8:
-                assertThat(correctWord.length).as(
-                                                  "The operation with this parameter isn't correct!")
-                                              .isNotEqualTo(0);
-                break;
-            default:
-                break;
-        }
+    public void checkTextWithOptionsThatIgnoreDigits(String text) {
+        YandexSpellerResponseDto[] correctWord =
+            SPELLER_SERVICE_INSTANCE.getCheckTextWithOptionsParam(text, IGNORE_DIGITS);
+        assertThat(correctWord.length).as(
+                                          "The operation with ignore digits isn't correct!")
+                                      .isEqualTo(0);
     }
 
-    public YandexSpellerAssertions getStatus(String text) {
-        assertThat(new CommonService().getWord(text).getStatusCode()).isEqualTo(200);
-        return this;
+    public void checkTextWithOptionsThatFindRepeatWord(String text) {
+        YandexSpellerResponseDto[] correctWord =
+            SPELLER_SERVICE_INSTANCE.getCheckTextWithOptionsParam(text, FIND_REPEAT_WORDS);
+        assertThat(correctWord.length).as(
+                                          "The operation with find repeat words isn't correct!")
+                                      .isNotEqualTo(0);
+        assertThat(correctWord[0].getCode()).as("The code of Error must match 2").isEqualTo(ERROR_REPEAT_WORD);
     }
 }

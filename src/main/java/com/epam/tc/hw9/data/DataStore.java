@@ -2,7 +2,7 @@ package com.epam.tc.hw9.data;
 
 import org.testng.annotations.DataProvider;
 
-public class DataProviderClass {
+public class DataStore {
 
     @DataProvider(name = "A set of wrong words")
     public Object[][] allData() {
