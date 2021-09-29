@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "ac2d6e08-9f94-4be1-a352-6d81fc7d184f",
+		"name": "Workday",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Workday board",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/boards?name=Workday&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Workday"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add description on Workday board",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/boards/:id?key={{key}}&token={{token}}&desc=This board is for creating a plan for a workday",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "desc",
+							"value": "This board is for creating a plan for a workday"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idWorkdayBoard}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workday board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"const response = pm.response.json();\r",
+							"const boardName = response.name;\r",
+							"pm.test(\"The name of board is correct\",()=>{\r",
+							"pm.expect(\"Workday\").to.eql(boardName)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/boards/:id?key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idWorkdayBoard}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a list in Workday board",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/lists?name=Task list&idBoard={{idWorkdayBoard}}&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Task list"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{idWorkdayBoard}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a card project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/cards?name=Work on the main project&idList={{idList}}&desc=This is supernecessarily project which must be done!&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Work on the main project"
+						},
+						{
+							"key": "idList",
+							"value": "{{idList}}"
+						},
+						{
+							"key": "desc",
+							"value": "This is supernecessarily project which must be done!"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a label on a Card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/cards/:id/labels?color=red&name=An important task&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						":id",
+						"labels"
+					],
+					"query": [
+						{
+							"key": "color",
+							"value": "red"
+						},
+						{
+							"key": "name",
+							"value": "An important task"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idCard}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a label",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const color = response.color;\r",
+							"pm.test(\"Label's color is red\",()=>{\r",
+							"pm.expect(\"red\").to.eql(color)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/labels/:id?key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"labels",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idLabel}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create checklist on a Card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/cards/:id/checklists?name=Testing the HomePage&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						":id",
+						"checklists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Testing the HomePage"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idCard}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/lists/:id?key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idList}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Demo board",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/boards?name=Demo&key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Demo"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Demo board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const value = response._value;\r",
+							"pm.test(\"The Demo board was deleted\",()=>{\r",
+							"pm.expect(null).to.eql(value)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Trello}}/1/boards/:id?key={{key}}&token={{token}}",
+					"host": [
+						"{{Trello}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						":id"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "---"
+		}
+	]
+}
