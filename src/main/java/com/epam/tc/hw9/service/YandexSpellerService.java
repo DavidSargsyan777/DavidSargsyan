@@ -1,13 +1,18 @@
 package com.epam.tc.hw9.service;
 
-import static com.epam.tc.hw9.utils.Parameters.PARAM_LANGUAGE;
-import static com.epam.tc.hw9.utils.Parameters.PARAM_OPTIONS;
+import static com.epam.tc.hw9.utils.Parameters.PARAM_TEXT;
+import static com.epam.tc.hw9.utils.URI.CHECK_TEXT_URI;
+import static org.apache.http.HttpStatus.SC_OK;
 
 import com.epam.tc.hw9.dto.YandexSpellerResponseDto;
 import com.google.gson.Gson;
+import java.util.HashMap;
+import java.util.Map;
+import org.hamcrest.Matchers;
 
 public class YandexSpellerService extends CommonService {
     private static YandexSpellerService instance;
+    private static Map<String, Object> params = new HashMap<>();
 
     private YandexSpellerService() {
 
@@ -21,19 +26,25 @@ public class YandexSpellerService extends CommonService {
     }
 
     public YandexSpellerResponseDto[] getCheckText(String text) {
-        return new Gson().fromJson(new CommonService().getCheckTextWithoutParams(text).getBody().asString(),
+        params.put(PARAM_TEXT, text);
+        getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
+        return new Gson().fromJson(new CommonService().getWithParams(CHECK_TEXT_URI, params).getBody().asString(),
             YandexSpellerResponseDto[].class);
     }
 
-    public YandexSpellerResponseDto[] getCheckTextWithLanguageParam(String text, String language) {
-        return new Gson().fromJson(
-            new CommonService().getCheckTextUsingParams(text, PARAM_LANGUAGE, language).getBody()
-                               .asString(), YandexSpellerResponseDto[].class);
+    public YandexSpellerResponseDto[] getCheckTextWithLanguageParam(String text, String param, String language) {
+        params.put(PARAM_TEXT, text);
+        params.put(param, language);
+        getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
+        return new Gson().fromJson(new CommonService().getWithParams(CHECK_TEXT_URI, params).getBody().asString(),
+            YandexSpellerResponseDto[].class);
     }
 
-    public YandexSpellerResponseDto[] getCheckTextWithOptionsParam(String text, Integer options) {
-        return new Gson().fromJson(
-            new CommonService().getCheckTextUsingParams(text, PARAM_OPTIONS, options).getBody()
-                               .asString(), YandexSpellerResponseDto[].class);
+    public YandexSpellerResponseDto[] getCheckTextWithOptionsParam(String text, String param, Integer options) {
+        params.put(PARAM_TEXT, text);
+        params.put(param, options);
+        getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
+        return new Gson().fromJson(new CommonService().getWithParams(CHECK_TEXT_URI, params).getBody().asString(),
+            YandexSpellerResponseDto[].class);
     }
 }
