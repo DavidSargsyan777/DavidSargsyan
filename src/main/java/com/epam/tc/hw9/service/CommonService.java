@@ -2,6 +2,7 @@ package com.epam.tc.hw9.service;
 
 import static com.epam.tc.hw9.utils.URI.BASE_URI;
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_OK;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -28,6 +29,6 @@ public class CommonService {
             specific.param(param.getKey(), param.getValue());
         }
 
-        return specific.get(uri);
+        return specific.expect().statusCode(SC_OK).log().ifError().when().get(uri);
     }
 }
