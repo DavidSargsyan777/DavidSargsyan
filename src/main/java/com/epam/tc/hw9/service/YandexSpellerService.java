@@ -12,7 +12,6 @@ import org.hamcrest.Matchers;
 
 public class YandexSpellerService extends CommonService {
     private static YandexSpellerService instance;
-    private static Map<String, Object> params = new HashMap<>();
 
     private YandexSpellerService() {
 
@@ -26,6 +25,7 @@ public class YandexSpellerService extends CommonService {
     }
 
     public YandexSpellerResponseDto[] getCheckText(String text) {
+        Map<String, Object> params = new HashMap<>();
         params.put(PARAM_TEXT, text);
         getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
         return new Gson().fromJson(new CommonService().getWithParams(CHECK_TEXT_URI, params).getBody().asString(),
@@ -33,6 +33,7 @@ public class YandexSpellerService extends CommonService {
     }
 
     public YandexSpellerResponseDto[] getCheckTextWithLanguageParam(String text, String param, String language) {
+        Map<String, Object> params = new HashMap<>();
         params.put(PARAM_TEXT, text);
         params.put(param, language);
         getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
@@ -41,6 +42,7 @@ public class YandexSpellerService extends CommonService {
     }
 
     public YandexSpellerResponseDto[] getCheckTextWithOptionsParam(String text, String param, Integer options) {
+        Map<String, Object> params = new HashMap<>();
         params.put(PARAM_TEXT, text);
         params.put(param, options);
         getWithParams(CHECK_TEXT_URI, params).then().statusCode(Matchers.is(SC_OK));
