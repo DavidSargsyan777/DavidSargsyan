@@ -7,23 +7,25 @@ import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.util.function.Supplier;
 import org.hamcrest.Matchers;
 
 public class CommonService {
-    private RequestSpecification requestSpecification;
 
-    public CommonService() {
-        requestSpecification =
-            new RequestSpecBuilder()
-                .setBaseUri(BASE_URI)
-                .build();
-    }
+    Supplier<RequestSpecification> specification = () -> {
+        RequestSpecification spec = new RequestSpecBuilder()
+            .setBaseUri(BASE_URI)
+            .addFilter(new RequestLoggingFilter())
+            .addFilter(new ResponseLoggingFilter())
+            .build();
+        return given(spec);
+    };
 
     public Response getCheckTextWithoutParams(String text) {
-        Supplier<RequestSpecification> specification = () -> given(requestSpecification);
         Response response = specification.get()
                                          .request()
                                          .param(PARAM_TEXT, text)
@@ -34,11 +36,13 @@ public class CommonService {
     }
 
     public <T> Response getCheckTextUsingParams(String text, String param, T paramName) {
-        Supplier<RequestSpecification> specification = () -> given(requestSpecification);
-        return specification.get()
-                            .request()
-                            .param(PARAM_TEXT, text)
-                            .param(param, paramName)
-                            .get(CHECK_TEXT_URI);
+        Response response = specification.get()
+                                         .request()
+                                         .param(PARAM_TEXT, text)
+                                         .param(param, paramName)
+                                         .get(CHECK_TEXT_URI);
+        response.then()
+                .statusCode(Matchers.is(SC_OK));
+        return response;
     }
 }
